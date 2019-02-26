@@ -38,7 +38,7 @@ Runtime:addEventListener("enterFrame", Moveship)
 local scrollSpeed2 = 2
 
 --character image with width and height 
-local octopus = display.newImageRect("Images/octopus.png", 225,200)
+local octopus = display.newImageRect("Images/octopus.png", 200,200)
 
 --set the image to be transparent 
 octopus.x = 0 
@@ -48,7 +48,7 @@ octopus.y = display.contentHeight/2
 --Input: this function accepts an event listener
 --Output: none 
 --Description: This function adds the scroll speed to the x-value of the ship 
-local function Moveship2(event)
+local function MoveOctopus(event)
 	-- add the scroll speedto the x-value of the ship
 	octopus.x = octopus.x + scrollSpeed2
 	--change the transparency of the ship everytime it moves so that it fades out 
@@ -56,4 +56,4 @@ local function Moveship2(event)
 end
 
 --moveship will be called over and over again 
-Runtime:addEventListener("eneterFrame", Moveship2)
+Runtime:addEventListener("enterFrame", MoveOctopus) 

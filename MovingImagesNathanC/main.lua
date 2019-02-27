@@ -1,8 +1,8 @@
 
 -- Name: Nathan Cook
 -- Course: ICS2O/3C
--- This program moves a beetleship across the screen and then makes it fade out. I added another object that moves in a different direction as well 
---as fading in an out. 
+-- This program moves a beetleship across the screen and then makes it fade out. 
+--I added another object that moves in a different direction as well as fading in an out. 
 
 -- hide the status bar 
 display.setStatusBar(display.HiddenStatusBar)
@@ -16,7 +16,10 @@ local backgroundImage = display.newImageRect("Images/background.png", 2048, 1536
 --character image with width and height 
 local beetleship = display.newImageRect("Images/beetleship.png", 200, 200)
 
---set the image to be transparent 
+--set image to be transparent
+beetleship.alpha = 0 
+
+--set the image x and y posituion of the beetleship
 beetleship.x = 0
 beetleship.y = display.contentHeight/3 
 
@@ -35,13 +38,16 @@ end
 Runtime:addEventListener("enterFrame", Moveship)
 
 --global variables
-local scrollSpeed2 = 2
+local scrollSpeed2 = -4
 
 --character image with width and height 
 local octopus = display.newImageRect("Images/octopus.png", 200,200)
 
---set the image to be transparent 
-octopus.x = 0 
+--set image to be transparent
+octopus.alpha = 0.1
+
+--set the image location and depth 
+octopus.x = 900 
 octopus.y = display.contentHeight/2
 
 --Function: Moveship
@@ -52,7 +58,7 @@ local function MoveOctopus(event)
 	-- add the scroll speedto the x-value of the ship
 	octopus.x = octopus.x + scrollSpeed2
 	--change the transparency of the ship everytime it moves so that it fades out 
-	octopus.alpha = octopus.alpha + 0.01
+	octopus.alpha = octopus.alpha + 0.005
 end
 
 --moveship will be called over and over again 

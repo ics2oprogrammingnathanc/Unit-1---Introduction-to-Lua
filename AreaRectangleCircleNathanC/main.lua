@@ -71,7 +71,7 @@ myCircle.strokeWidth = 20
 --set the colour of the border
 myCircle:setStrokeColor(0.8, 0.4, 0.4)
 
-AreaOfCircle = PI * radiusOfCircle
+AreaOfCircle = PI * radiusOfCircle * radiusOfCircle
 
 areaTextCircle = display.newText("The area of this circle with a radius of \n" ..
 	radiusOfCircle .. " is " .. AreaOfCircle .. "pixels².", 0, 0, Arial, textSize)

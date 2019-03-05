@@ -16,9 +16,14 @@ local blueGirl = display.newImageRect("Images/girl2.png", 150, 150)
 local blueGirlWidth = blueGirl.width
 local blueGirlHeight = blueGirl.height
 
+local pinkGirl = display.newImageRect("Images/girl1.png", 150, 150)
+local pinkGirlWidth = pinkGirl.width
+local pinkGirlHeight = pinkGirl.height
+
 -- my boolean vaiables to keep track of which object I touched first
 local alreadyTouchedYellowGirl = false
 local alreadyTouchedBlueGirl = false
+local alreadyTouchedPinkGirl = false
 
 --set the initial x and y position of myImage
 yellowGirl.x = 400
@@ -27,6 +32,9 @@ yellowGirl.y = 500
 blueGirl.x = 300
 blueGirl.y = 200
 
+pinkGirl.x = 700
+pinkGirl.y = 500
+
 -- Function: BlueGirlListener
 -- Input: touch listener
 -- Output: none
@@ -34,7 +42,7 @@ blueGirl.y = 200
 local function BlueGirlListener(touch)
 
 	if (touch.phase == "began") then
-		if (alreadyTouchedYellowGirl == false) then
+		if (alreadyTouchedYellowGirl == false) and (alreadyTouchedPinkGirl == false) then
 			alreadyTouchedBlueGirl = true
 		end
 	end
@@ -47,6 +55,7 @@ local function BlueGirlListener(touch)
 	if (touch.phase == "ended") then
 	    alreadyTouchedBlueGirl = false
 	    alreadyTouchedYellowGirl = false
+	    alreadyTouchedPinkGirl = false
 	end
 end
 
@@ -60,7 +69,7 @@ blueGirl:addEventListener("touch", BlueGirlListener)
 local function YellowGirlListener(touch)
 
 	if (touch.phase == "began") then
-		if (alreadyTouchedBlueGirl == false) then
+		if (alreadyTouchedBlueGirl == false) and (alreadyTouchedPinkGirl == false) then
 			alreadyTouchedYellowGirl = true
 		end
 	end
@@ -73,9 +82,35 @@ local function YellowGirlListener(touch)
 	if (touch.phase == "ended") then
 	    alreadyTouchedYellowGirl = false
 	    alreadyTouchedBlueGirl = false
+	    alreadyTouchedPinkGirl = false
 	end
 end
 
 -- add the respective listeners to each object
 yellowGirl:addEventListener("touch", YellowGirlListener)
 
+-- Function: PinkGirlListener
+-- Input: touch listener
+-- Output: none
+-- Description: When pink girl is touched, move her
+local function PinkGirlListener(touch)
+
+	if (touch.phase == "began") then
+		if (alreadyTouchedBlueGirl == false) and (alreadyTouchedYellowGirl == false) then
+			alreadyTouchedPinkGirl = true
+		end
+	end
+
+	if ( (touch.phase == "moved") and (alreadyTouchedPinkGirl == true) ) then
+		pinkGirl.x = touch.x
+		pinkGirl.y = touch.y
+	end
+
+	if (touch.phase == "ended") then
+	    alreadyTouchedpinkGirl = false
+	    alreadyTouchedBlueGirl = false
+	    alreadyTouchedyellowGirl = false
+	end
+end
+
+pinkGirl:addEventListener("touch", PinkGirlListener)

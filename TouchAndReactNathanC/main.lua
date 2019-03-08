@@ -31,8 +31,11 @@ textObject.isVisible = false
 --create image, set its position and make it invisible
 local cursor = display.newImageRect("Images/Cursor.png", 198, 96)
 cursor.x = display.contentWidth/2
-cursor.y = display.contentHeight/1.5
+cursor.y = 600
 cursor.isVisible = false
+
+local correctSound = audio.loadSound( "Music/gameSound.wav")
+local correctSoundChannel
 
 --Function: BlueButtonListener
 --Input: touch listener
@@ -44,12 +47,15 @@ local function BlueButtonListener(touch)
 		blueButton.isVisible = false
 		redButton.isVisible = true
 		textObject.isVisible = true
+		cursor.isVisible = true
+		correctSoundChannel = audio.play(correctSound)
 	end
 
 	if (touch.phase == "ended") then
 	    blueButton.isVisible = true
 	    redButton.isVisible = false
 	    textObject.isVisible = false
+	    cursor.isVisible = false
 	end
 end
 
@@ -63,12 +69,15 @@ local function RedButtonListener(touch)
 		blueButton.isVisible = false
 		redButton.isVisible = true
 		textObject.isVisible = true
+		cursor.isVisible = true
+		correctSoundChannel = audio.play(correctSound)
 	end
 
 	if (touch.phase == "ended") then
 	    blueButton.isVisible = true
 	    redButton.isVisible = false
 	    textObject.isVisible = false
+	    cursor.isVisible = false
 	end
 end
 

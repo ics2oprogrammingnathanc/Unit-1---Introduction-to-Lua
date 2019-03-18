@@ -34,7 +34,7 @@ cursor.x = display.contentWidth/2
 cursor.y = 600
 cursor.isVisible = false
 
-local correctSound = audio.loadSound( "Music/gameSound.wav")
+local correctSound = audio.loadSound( "SoundEffects/NathanCook.mp3")
 local correctSoundChannel
 
 --Function: BlueButtonListener

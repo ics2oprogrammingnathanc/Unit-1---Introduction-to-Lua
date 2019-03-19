@@ -28,7 +28,6 @@ local incorrectObject
 local correctAnswers1 
 local answerCounter = 0
 local numberOfCorrect
-local answerObject
 
 ------------------------------------------------------------
 -- Local Functions
@@ -115,7 +114,3 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- call the function to ask the question
 AskQuestion()
-
-
-
-

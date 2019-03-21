@@ -1,5 +1,5 @@
------------------------------------------------------------------------------------------
--- Title: Numeric Textfield
+-----------------------------
+-- Title: Math Fun!
 -- Name: Nathan Cook
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user to answer in a
@@ -30,6 +30,7 @@ local answerCounter = 0
 local numberOfCorrect
 local answerObject
 local randomOperator
+local correctAnswers2
 ------------------------------------------------------------
 -- Local Functions
 -----------------------------------------------------------
@@ -37,7 +38,7 @@ local randomOperator
 local function AskQuestion()
 	-- generate a random number between 1 and 2
 	--** make sure to declare the variable
-	randomOperator = math.random(1,4)
+	randomOperator = math.random(1, 4)
 
 	--if random operater equals 1, do addition
 	if (randomOperator ==1) then
@@ -78,7 +79,7 @@ local function AskQuestion()
 			questionObject.text = randomNumber1 .. " x " .. randomNumber2 .. " = "
 
 			-- if random operater is 4, preform division
-			elseif (randomOperator == 3) then
+			elseif (randomOperator == 4) then
 
 				--generate 2 random numbers
 				randomNumber1 = math.random(0, 10)
@@ -86,10 +87,11 @@ local function AskQuestion()
 
 				-- calculate correct answer
 				correctAnswer = randomNumber1 / randomNumber2
+				correctAnswer = math.floor(correctAnswer + 0.5)
 
 				-- create question in text object
 				questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
-		
+
 	end
 end
 
@@ -125,7 +127,7 @@ local function NumericFieldListener( event )
 		event.target.text = ""
 
 	end
-	
+
 end
 
 --------------------------------------------------------------
@@ -150,13 +152,17 @@ incorrectObject.isVisible = false
 numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
 numericField.inputType = "number"
 
--- add text to count number of correct answers
-correctAnswers1 = display.newText( "Correct Answers!", display.contentWidth/2, display.contentHeight/7, nil, 55 )
-correctAnswers1:setTextColor( 0.8, 0.7, 1)
+-- add text for title
+correctAnswers1 = display.newText( "Cool Math Questions!", display.contentWidth/2, display.contentHeight/7, nil, 70 )
+correctAnswers1:setTextColor( 1, 0.1, 0.3)
 
 -- add the count of correct answers
-numberOfCorrect = display.newText( "", display.contentWidth/2, display.contentHeight/4.5, nil, 55 )
+numberOfCorrect = display.newText( "", display.contentWidth/2, display.contentHeight/1.27, nil, 55 )
 numberOfCorrect:setTextColor( 0.3, 0.3, 1)
+
+-- add text for correct answers
+correctAnswers2 = display.newText( "Correct Answers!", display.contentWidth/2, display.contentHeight/1.15, nil, 55 )
+correctAnswers2:setTextColor( 0.3, 0.3, 1)
 
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)
@@ -167,5 +173,4 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- call the function to ask the question
 AskQuestion()
-
-
+-----------------------------------------------------------------------------------------

@@ -20,6 +20,9 @@ local pinkGirl = display.newImageRect("Images/girl1.png", 150, 150)
 local pinkGirlWidth = pinkGirl.width
 local pinkGirlHeight = pinkGirl.height
 
+local touchedSound = audio.loadSound( "SoundEffects2/BoingSoundEffect.mp3")
+local touchedSoundChannel
+
 -- my boolean vaiables to keep track of which object I touched first
 local alreadyTouchedYellowGirl = false
 local alreadyTouchedBlueGirl = false
@@ -40,6 +43,9 @@ pinkGirl.y = 500
 -- Output: none
 -- Description: When blue girl is touched, move her
 local function BlueGirlListener(touch)
+
+	-- play sound
+	touchedSoundChannel = audio.play(touchedSound)
 
 	if (touch.phase == "began") then
 		if (alreadyTouchedYellowGirl == false) and (alreadyTouchedPinkGirl == false) then
@@ -68,6 +74,9 @@ blueGirl:addEventListener("touch", BlueGirlListener)
 -- Description: When yellow girl is touched, move her
 local function YellowGirlListener(touch)
 
+	-- play boing sound
+	touchedSoundChannel = audio.play(touchedSound)
+
 	if (touch.phase == "began") then
 		if (alreadyTouchedBlueGirl == false) and (alreadyTouchedPinkGirl == false) then
 			alreadyTouchedYellowGirl = true
@@ -77,6 +86,7 @@ local function YellowGirlListener(touch)
 	if ( (touch.phase == "moved") and (alreadyTouchedYellowGirl == true) ) then
 		yellowGirl.x = touch.x
 		yellowGirl.y = touch.y
+
 	end
 
 	if (touch.phase == "ended") then
@@ -94,6 +104,9 @@ yellowGirl:addEventListener("touch", YellowGirlListener)
 -- Output: none
 -- Description: When pink girl is touched, move her
 local function PinkGirlListener(touch)
+
+	-- play boing sound 
+	touchedSoundChannel = audio.play(touchedSound)
 
 	if (touch.phase == "began") then
 		if (alreadyTouchedBlueGirl == false) and (alreadyTouchedYellowGirl == false) then

@@ -35,12 +35,28 @@ local answerObject
 local randomOperator
 local correctAnswers2
 local timerText
+local endGame
+local endGameBad
+local correctSound = audio.loadSound( "SoundEffects/Cash Register Cha Ching.mp3")
+local incorrectSound = audio.loadSound( "SoundEffects/whack.mp3")
+local correctSoundChannel
+local incorrectSoundChannel
 ---------------------------------------------------
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------
-
 local function UpdateTime()
-
+	if 	(answerCounter >= 8) then
+				timer.cancel(countDownTimer)
+				endGame.isVisible = true 
+				numberOfCorrect.isVisible = false
+				correctSoundChannel = audio.play(correctSound)
+				
+		elseif (lives <= 0) then
+				timer.cancel(countDownTimer)
+				endGameBad.isVisible = true
+				numberOfCorrect.isVisible = false
+				incorrectSoundChannel = audio.play(incorrectSound)
+		end	
 	-- decrement the number of seconds
 	secondsLeft = secondsLeft - 1
 
@@ -72,12 +88,6 @@ end
 local function StartTimer()
 	-- create a countdown timer that loops infinitely
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
-
-		if 	(answerCounter == 8) then
-				timer.cancel(clockText)
-		elseif (lives <= 0) then
-				timer.cancel(clockText)
-		end
 end
 
 local function AskQuestion()
@@ -162,12 +172,12 @@ local function NumericFieldListener( event )
 		if (userAnswer == correctAnswer) then
 			answerCounter = answerCounter + 1
 			correctObject.isVisible = true
-			timer.performWithDelay(1500, HideCorrect)
+			timer.performWithDelay(1000, HideCorrect)
 			numberOfCorrect.text = answerCounter
 			secondsLeft = totalSeconds
 		else 
 			incorrectObject.isVisible = true
-			timer.performWithDelay(1500, HideCorrect)
+			timer.performWithDelay(1000, HideCorrect)
 			secondsLeft = totalSeconds
 			lives = lives - 1
 
@@ -237,11 +247,21 @@ correctAnswers2 = display.newText( "Correct Answers!", display.contentWidth/2, d
 correctAnswers2:setTextColor( 0.3, 0.3, 1)
 
 -- timer for each question
-clockText = display.newText( "" .. secondsLeft .. "", 80, 700, nil, 55 )
+clockText = display.newText( "", 80, 700, nil, 55 )
 clockText:setTextColor( 0.4, 0, 1)
 
 -- text for timer 
 timerText = display.newText( "Timer", 85, 630, nil, 60 )
+
+--text for winner of the game 
+endGame = display.newText( "Congradulations You've Won! \n  Press Ctrl + R to restart", display.contentWidth/2, display.contentHeight/1.5, nil, 55 )
+endGame:setTextColor( 1, 0.1, 0.3)
+endGame.isVisible = false
+
+--text for loser of the game 
+endGameBad = display.newText( "Try Again. Press Ctrl + R to restart", display.contentWidth/2, display.contentHeight/1.5, nil, 55 )
+endGameBad:setTextColor( 0.3, 0.1, 1)
+endGameBad.isVisible = false
 
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)

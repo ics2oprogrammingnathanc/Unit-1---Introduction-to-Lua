@@ -49,7 +49,7 @@ local function UpdateTime()
 	if (secondsLeft == 0 ) then
 		--reset the number of seconds left
 		secondsLeft = totalSeconds
-		lives = lives - 1
+		lives = lives - 1 
 
 		--** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A YOU LOSE
 		-- IMAGE AND CANCEL THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
@@ -58,11 +58,7 @@ local function UpdateTime()
 		elseif (lives == 1) then
 			heart2.isVisible = false
 			heart3.isVisible = false
-		elseif(lives == 0) then
-			heart1.isVisible = false
-			heart2.isVisible = false
-			heart3.isVisible = false
-		elseif(lives < 0) then
+		elseif(lives <= 0) then
 			heart1.isVisible = false
 			heart2.isVisible = false
 			heart3.isVisible = false
@@ -161,11 +157,25 @@ local function NumericFieldListener( event )
 		if (userAnswer == correctAnswer) then
 			answerCounter = answerCounter + 1
 			correctObject.isVisible = true
-			timer.performWithDelay(2000, HideCorrect)
-			numberOfCorrect.text = answerCounter 
+			timer.performWithDelay(1500, HideCorrect)
+			numberOfCorrect.text = answerCounter
+			secondsLeft = totalSeconds
 		else 
 			incorrectObject.isVisible = true
-			timer.performWithDelay(2000, HideCorrect)
+			timer.performWithDelay(1500, HideCorrect)
+			secondsLeft = totalSeconds
+			lives = lives - 1
+
+			if(lives == 2) then
+				heart3.isVisible = false
+			elseif (lives == 1) then
+				heart2.isVisible = false
+				heart3.isVisible = false
+			elseif(lives <= 0) then
+				heart1.isVisible = false
+				heart2.isVisible = false
+				heart3.isVisible = false
+			end
 		end 
 		--clear text field
 		event.target.text = ""
@@ -222,8 +232,6 @@ correctAnswers2 = display.newText( "Correct Answers!", display.contentWidth/2, d
 correctAnswers2:setTextColor( 0.3, 0.3, 1)
 
 clockText = display.newText( "" .. secondsLeft .. "", display.contentHeight*2/3, display.contentWidth*2/3)
-
-Runtime:addEventListener("enterFrame", StartTimer)
 
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)

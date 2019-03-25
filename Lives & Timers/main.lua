@@ -34,6 +34,7 @@ local numberOfCorrect
 local answerObject
 local randomOperator
 local correctAnswers2
+local timerText
 ---------------------------------------------------
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------
@@ -62,9 +63,7 @@ local function UpdateTime()
 			heart1.isVisible = false
 			heart2.isVisible = false
 			heart3.isVisible = false
-		end
-
-		-- *** CALL THE FUNCTION TO ASK A NEW QUESTION
+		end	-- *** CALL THE FUNCTION TO ASK A NEW QUESTION
 
 	end
 end
@@ -73,6 +72,12 @@ end
 local function StartTimer()
 	-- create a countdown timer that loops infinitely
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
+
+		if 	(answerCounter == 8) then
+				timer.cancel(clockText)
+		elseif (lives <= 0) then
+				timer.cancel(clockText)
+		end
 end
 
 local function AskQuestion()
@@ -220,7 +225,7 @@ numericField = native.newTextField( display.contentWidth/2, display.contentHeigh
 numericField.inputType = "number"
 
 -- add text for title
-correctAnswers1 = display.newText( "Cool Math Questions!", display.contentHeight/1.5, display.contentHeight/4, nil, 65 )
+correctAnswers1 = display.newText( "Cool Math Questions!", display.contentWidth/2, display.contentHeight/4, nil, 65 )
 correctAnswers1:setTextColor( 1, 0.1, 0.3)
 
 -- add the count of correct answers
@@ -231,7 +236,12 @@ numberOfCorrect:setTextColor( 0.3, 0.3, 1)
 correctAnswers2 = display.newText( "Correct Answers!", display.contentWidth/2, display.contentHeight/1.15, nil, 55 )
 correctAnswers2:setTextColor( 0.3, 0.3, 1)
 
-clockText = display.newText( "" .. secondsLeft .. "", display.contentHeight*2/3, display.contentWidth*2/3)
+-- timer for each question
+clockText = display.newText( "" .. secondsLeft .. "", 80, 700, nil, 55 )
+clockText:setTextColor( 0.4, 0, 1)
+
+-- text for timer 
+timerText = display.newText( "Timer", 85, 630, nil, 60 )
 
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)

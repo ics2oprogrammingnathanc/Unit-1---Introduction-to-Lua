@@ -37,4 +37,13 @@ local beam = display.newImageRect("Images/beam.png", 0, 0)
 	beam.y = display.contentCenterY*1.65
 
 	--set beam width and height on iPad
-	beam:scale(0.5, 1/10)
+	beam:scale(0.5, 0.1)
+
+	-- rotate the beam so its on an angle
+	beam:rotate(45)
+
+	-- send it to the back layer
+	beam:toBack()
+
+	--add to physics 
+	physics.addBody(beam, "static", {friction=0.5, bounce=0.3})

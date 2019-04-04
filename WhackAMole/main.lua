@@ -42,12 +42,20 @@ local score = 0
 -- Score text
 local scoreText = display.newText( "score", display.contentWidth/2, display.contentHeight/4, nil, 55 )
 
+-- write text on screen
+local byText = display.newText( "By: Nathan Cook", display.contentWidth/2, display.contentHeight/1.2, nil, 45 )
+	
+-- write how to play on screen
+local howTo = display.newText( "Click on the hearts to gain points", display.contentWidth/2, display.contentHeight/2, nil, 45 )
+howTo:setTextColor(0.5, 0.1, 0.5)
+
 ------------------------------------------------------------------
 --SOUNDS
 ---------------------------------------------------------------------------------
 local touchSound = audio.loadSound( "SoundEffects/Cash Register Cha Ching.mp3")
 local touchSoundChannel
-
+local backGroundMusic = audio.loadSound( "SoundEffects/backGround.mp3")
+local backGroundChannel
 ---------------------------------------------------------------------------
 --FUNCTIONS
 ----------------------------------------------------------------------
@@ -62,7 +70,7 @@ function PopUp( )
 	-- make mole visible
 	mole.isVisible = true
 
-	timer.performWithDelay( 550, Hide )
+	timer.performWithDelay( 475, Hide )
 end 
 
 -- Function calls the popup function after 3 seconds
@@ -83,6 +91,7 @@ end
 -- Function starts the game
 function GameStart ( )
 	PopUpDelay()
+	backGroundChannel = audio.play(backGroundMusic)
 end
 
 -- This function increments the score only if the mole is clicked. 

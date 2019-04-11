@@ -119,4 +119,3 @@ mole:addEventListener( "touch", Whacked )
 
 -- call function
 GameStart( )
-
